@@ -13,7 +13,7 @@ export default function RouteWrapper() {
                 <Switch>
                 <Route path='/profile' />
                         <ProfilePage />
-                    <Route exact path='/'>
+                    <Route path='/'>
                         <Login />
                     </Route>
                 </Switch>
