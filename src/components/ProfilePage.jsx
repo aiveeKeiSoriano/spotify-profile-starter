@@ -11,6 +11,8 @@ export default function ProfilePage(props) {
         // eslint-disable-next-line
         // , [])
     return (
-        <div></div>
+        <div>
+            <h1>PROFILE</h1>
+        </div>
     )
 }
