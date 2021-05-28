@@ -22,7 +22,7 @@ export default function Login() {
 
     return (
         <div className="login">
-            <button><a href='https://accounts.spotify.com/authorize?client_id=b6b96f827f584079959eae2bd104c04f&response_type=token&redirect_uri=https://quizzical-poitras-057011.netlify.app/profile/'>Login</a></button>
+            <button><a href='https://accounts.spotify.com/authorize?client_id=b6b96f827f584079959eae2bd104c04f&response_type=token&scope=user-top-read%20user-read-private%20user-read-email&redirect_uri=http://localhost:3000/profile'>Login</a></button>
         </div>
     )
 }
