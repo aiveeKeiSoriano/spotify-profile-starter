@@ -11,7 +11,8 @@ export default function RouteWrapper() {
     return (
         <Router>
                 <Switch>
-                    <Route path={`/profile/:token`} component={ProfilePage} />
+                <Route path='/profile' />
+                        <ProfilePage />
                     <Route exact path='/'>
                         <Login />
                     </Route>
