@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom"
 export default function ProfilePage(props) {
     const location = useLocation();
     useEffect(() => {
-        console.log(["pageview", location.pathname]);
+        console.log(["pageview", location]);
     }, [location]);
     console.log('here')
         // eslint-disable-next-line
