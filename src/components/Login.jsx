@@ -24,10 +24,14 @@ export default function Login() {
     display: inline-block;
     `;
 
+    // const URL = 'https://accounts.spotify.com/authorize?client_id=b6b96f827f584079959eae2bd104c04f&response_type=token&scope=user-top-read%20user-read-private%20user-read-email&redirect_uri=http://localhost:3000/profile'
+    const URL = 'https://accounts.spotify.com/authorize?client_id=b6b96f827f584079959eae2bd104c04f&response_type=code&scope=user-top-read%20user-read-private%20user-read-email&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
+
     return (
         <LoginContainer>
             <H1Tag>Spotify Profile</H1Tag>
-            <LogInBtn href='https://accounts.spotify.com/authorize?client_id=b6b96f827f584079959eae2bd104c04f&response_type=token&scope=user-top-read%20user-read-private%20user-read-email&redirect_uri=http://localhost:3000/profile'>
+            <LogInBtn href={URL}>
+
                LOG IN TO SPOTIFY </LogInBtn>
         </LoginContainer>
     )
