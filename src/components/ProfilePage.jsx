@@ -1,10 +1,12 @@
-import { useEffect } from "react"
+// import { useEffect } from "react"
+import { useParams } from "react-router-dom"
 
 
 export default function ProfilePage(props) {
-    useEffect(() => console.log(props.match.params.token)
+    let { token } = useParams()
+        console.log(token)
         // eslint-disable-next-line
-        , [])
+        // , [])
     return (
         <div></div>
     )
