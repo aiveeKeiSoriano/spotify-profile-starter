@@ -59,27 +59,27 @@ export default function ProfilePage(props) {
         console.log(data)
     }
 
-    // let getArtists = async () => {
-    //     let response = await fetch(ArtistURL, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Authorization': 'Bearer ' + token
-    //         }
-    //     })
-    //     let data = await response.json()
-    //     console.log(data)
-    // }
+    let getArtists = async () => {
+        let response = await fetch(ArtistURL, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+        let data = await response.json()
+        console.log(data)
+    }
 
-    // let getTracks = async () => {
-    //     let response = await fetch(TracksURL, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Authorization': 'Bearer ' + token
-    //         }
-    //     })
-    //     let data = await response.json()
-    //     console.log(data)
-    // }
+    let getTracks = async () => {
+        let response = await fetch(TracksURL, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+        let data = await response.json()
+        console.log(data)
+    }
     
 
     // useEffect(() => {
