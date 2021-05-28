@@ -1,6 +1,10 @@
 
+import Login from './Login'
+
 export default function RouteWrapper() {
     return (
-        <div></div>
+        <div>
+            <Login />
+        </div>
     )
 }
