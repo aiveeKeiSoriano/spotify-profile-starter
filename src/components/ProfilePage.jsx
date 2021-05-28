@@ -6,7 +6,8 @@ export default function ProfilePage(props) {
     const location = useLocation();
     useEffect(() => {
         console.log(["pageview", location.pathname]);
-      }, [location]);
+    }, [location]);
+    console.log('here')
         // eslint-disable-next-line
         // , [])
     return (
