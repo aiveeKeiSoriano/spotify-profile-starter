@@ -10,13 +10,14 @@ import ProfilePage from './ProfilePage';
 export default function RouteWrapper() {
     return (
         <Router>
-                <Switch>
-                <Route path='/profile' />
-                        <ProfilePage />
-                    <Route path='/'>
-                        <Login />
-                    </Route>
-                </Switch>
+            <Switch>
+                <Route path='/profile'>
+                    <ProfilePage />
+                </Route>
+                <Route path='/'>
+                    <Login />
+                </Route>
+            </Switch>
         </Router>
     )
 }
