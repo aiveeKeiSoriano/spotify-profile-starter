@@ -17,16 +17,17 @@ export default function Login() {
     const LogInBtn = styled.a`
     background-color: #1FBA57;
     color: white;
-    padding: 1em 1.5em;
+    padding: .8em 1.3em;
     border-radius: 50px;
     text-decoration: none;
     font-weight: bold;
     display: inline-block;
+    letter-spacing: 1.5px;
     `;
 
     // const URL = 'https://accounts.spotify.com/authorize?client_id=b6b96f827f584079959eae2bd104c04f&response_type=token&scope=user-top-read%20user-read-private%20user-read-email&redirect_uri=http://localhost:3000/profile'
     // const URL = 'https://accounts.spotify.com/authorize?client_id=b6b96f827f584079959eae2bd104c04f&response_type=code&scope=user-top-read%20user-read-private%20user-read-email&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
-    const URL = 'https://accounts.spotify.com/authorize?client_id=e7bebc81234e4737ada60bc666eb50d7&response_type=code&scope=user-top-read%20user-read-private%20user-read-email&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
+    const URL = 'https://accounts.spotify.com/authorize?client_id=e7bebc81234e4737ada60bc666eb50d7&response_type=code&scope=playlist-read-private%20user-follow-read%20user-top-read%20user-read-private%20user-read-email&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
     
     return (
         <LoginContainer>

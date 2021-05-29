@@ -36,30 +36,47 @@ export let topArtistsObtained = (arr) => ({
 export let getToken = (code) => {
     return async (dispatch) => {
         try {
-            let response = await axios.post(tokenURL, {
-                headers: {
-                    'Authorization': 'Basic ' + Client,
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: 'grant_type=authorization_code&code=' + code + '&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
-            })
-            dispatch(tokenObtained(response.access_token, response.refresh_token))
-        }
+                let response = await axios({
+                    url: tokenURL,
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Basic ' + Client,
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: 'grant_type=authorization_code&code=' + code + '&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
+                })
+                dispatch(tokenObtained(response.data.access_token, response.data.refresh_token))
+            }
         catch (e) {
             dispatch(throwError(e))
-        }
+        }}
     }
-}
 
-export let getProfile = () => {
+export let getInfo= () => {
     return async (dispatch, getState) => {
         try {
-            let response = await axios.get(ProfileURL, {
+            let profile = await axios({
+                method: 'GET',
+                url: ProfileURL,
                 headers: {
                     'Authorization': 'Bearer ' + getState().auth.token
                 }
             })
-            dispatch(profileObtained(response))
+            let following = await axios({
+                method: 'GET',
+                url: ProfileURL + '/following?type=artist',
+                headers: {
+                    'Authorization': 'Bearer ' + getState().auth.token
+                }
+            })
+            let playlists = await axios({
+                method: 'GET',
+                url: ProfileURL + '/playlists',
+                headers: {
+                    'Authorization': 'Bearer ' + getState().auth.token
+                }
+            })
+            dispatch(profileObtained({ ...profile.data, following: following.data.artists.total, playlists: playlists.data.total }))
         }
         catch (e) {
             dispatch(throwError(e))
