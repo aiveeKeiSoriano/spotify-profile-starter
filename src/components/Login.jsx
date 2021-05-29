@@ -31,16 +31,22 @@ export default function Login() {
     //auth code - aivee app
     // const URL = 'https://accounts.spotify.com/authorize?client_id=b6b96f827f584079959eae2bd104c04f&response_type=code&scope=user-top-read%20user-read-private%20user-read-email&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
     
-    // auth code - nithya app - localhost redirect
-    // const redirect = 'https://accounts.spotify.com/authorize?client_id=e7bebc81234e4737ada60bc666eb50d7&response_type=code&scope=playlist-read-private%20user-follow-read%20user-top-read%20user-read-private%20user-read-email&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
+    
+    const endpoint = 'https://accounts.spotify.com/authorize?'
+    const clientID = '&client_id=e7bebc81234e4737ada60bc666eb50d7'
+    const response = '&response_type=code'
+    const scopes = '&scope=playlist-read-private%20user-follow-read%20user-top-read%20user-read-private%20user-read-email'
+
+    // localhost redirect
+    // const redirect = '&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
     
     //netlify redirect
-    const redirect = 'https://accounts.spotify.com/authorize?client_id=e7bebc81234e4737ada60bc666eb50d7&response_type=code&scope=playlist-read-private%20user-follow-read%20user-top-read%20user-read-private%20user-read-email&redirect_uri=https%3A%2F%2Fquizzical-poitras-057011.netlify.app%2Fprofile'
-    
+    const redirect = '&redirect_uri=https%3A%2F%2Fquizzical-poitras-057011.netlify.app%2Fprofile'
+
     return (
         <LoginContainer>
             <H1Tag>Spotify Profile</H1Tag>
-            <LogInBtn href={redirect}>
+            <LogInBtn href={endpoint + clientID + response + scopes + redirect}>
                 LOG IN TO SPOTIFY </LogInBtn>
         </LoginContainer>
     )
