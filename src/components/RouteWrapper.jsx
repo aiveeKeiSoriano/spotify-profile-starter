@@ -1,11 +1,11 @@
 
-import Login from './Login'
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
 import ProfilePage from './ProfilePage';
+import Login from './Login'
 
 export default function RouteWrapper() {
     return (
