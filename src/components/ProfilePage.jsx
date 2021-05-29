@@ -8,16 +8,17 @@ export default function ProfilePage(props) {
     const TracksURL = 'https://api.spotify.com/v1/me/top/tracks'
     const ArtistURL = 'https://api.spotify.com/v1/me/top/artists'
     const ProfileURL = 'https://api.spotify.com/v1/me'
-    const Client = 'YjZiOTZmODI3ZjU4NDA3OTk1OWVhZTJiZDEwNGMwNGY6ZWNmYjNjOWYyZjlkNDVhZTk4NjhiNzc1ZGFmYjk5NWQ='
+    // const Client = 'YjZiOTZmODI3ZjU4NDA3OTk1OWVhZTJiZDEwNGMwNGY6ZWNmYjNjOWYyZjlkNDVhZTk4NjhiNzc1ZGFmYjk5NWQ='
+    const Client = 'ZTdiZWJjODEyMzRlNDczN2FkYTYwYmM2NjZlYjUwZDc6OWIwMDVkZjlmZGE4NDE3MWEwNmVjMjc2MmNmYTQ3YTI='
     const tokenURL = 'https://accounts.spotify.com/api/token'
     // console.log(location)
     let [code, setCode] = useState(location.search.replace('?code=', ''))
     let [token, setToken] = useState(null)
     let [refresh, setRefresh] = useState(null)
 
-    // useEffect(() => {
-    //     setToken(location.hash.split('&')[0].replace('#access_token=', ''));
-    // }, [location]);
+    useEffect(() => {
+        setToken(location.hash.split('&')[0].replace('#access_token=', ''));
+    }, [location]);
     //     // eslint-disable-next-line
     //     // , [])
     
@@ -31,7 +32,7 @@ export default function ProfilePage(props) {
         // eslint-disable-next-line
         , [code])
     
-    useEffect(() => token ? getInfo() : false, [token])
+    useEffect(() => token ? getInfo() : console.log(refresh), [token])
     
     async function getToken() {
         let response = await fetch(tokenURL, {
@@ -43,6 +44,7 @@ export default function ProfilePage(props) {
             }
         })
         let data = await response.json()
+        console.log(data)
         setToken(data.access_token)
         setRefresh(data.refresh_token)
     }
