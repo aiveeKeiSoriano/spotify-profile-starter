@@ -7,6 +7,8 @@ const ProfileURL = 'https://api.spotify.com/v1/me'
 // const Client = 'YjZiOTZmODI3ZjU4NDA3OTk1OWVhZTJiZDEwNGMwNGY6ZWNmYjNjOWYyZjlkNDVhZTk4NjhiNzc1ZGFmYjk5NWQ='
 const Client = 'ZTdiZWJjODEyMzRlNDczN2FkYTYwYmM2NjZlYjUwZDc6OWIwMDVkZjlmZGE4NDE3MWEwNmVjMjc2MmNmYTQ3YTI='
 const tokenURL = 'https://accounts.spotify.com/api/token'
+// const LOCALHOST = '&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
+const NETLIFY = '&redirect_uri=https%3A%2F%2Fquizzical-poitras-057011.netlify.app%2Fprofile'
  
 export let throwError = (e) => ({
     type: THROW_ERROR,
@@ -43,7 +45,7 @@ export let getToken = (code) => {
                         'Authorization': 'Basic ' + Client,
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    data: 'grant_type=authorization_code&code=' + code + '&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
+                    data: 'grant_type=authorization_code&code=' + code + NETLIFY //change when testing locally
                 })
                 dispatch(tokenObtained(response.data.access_token, response.data.refresh_token))
             }
