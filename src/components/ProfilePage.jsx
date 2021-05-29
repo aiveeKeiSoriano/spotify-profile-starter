@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom"
 import styled from "styled-components";
-import { getInfo, getToken } from "../redux/actions/actions";
+import { getInfo, getToken, tokenObtained } from "../redux/actions/actions";
 import Error from "./Error";
 import SideBar from "./SideBar";
 
@@ -89,17 +89,23 @@ const Logout = styled.button`
     border-radius: 20px;
     margin-top: 1em;
     cursor: pointer;
+
+    &:hover {
+        background-color: #ffffff1d;
+    }
 `
 
 export default function ProfilePage(props) {
     const location = useLocation();
+    const LocalToken = localStorage.getItem('Token')
     let dispatch = useDispatch()
     let token = useSelector(state => state.auth.token)
     let user = useSelector(state => state.user)
     let error = useSelector(state => state.auth.error)
 
     useEffect(() => {
-        if (!token) dispatch(getToken(location.search.replace('?code=', '')))
+        if (LocalToken) dispatch(tokenObtained(LocalToken))
+        else if (!token) dispatch(getToken(location.search.replace('?code=', '')))
         else (getInfo())
     }
         // eslint-disable-next-line
