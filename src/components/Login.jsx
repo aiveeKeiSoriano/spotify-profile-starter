@@ -33,15 +33,15 @@ export default function Login() {
     
     
     const endpoint = 'https://accounts.spotify.com/authorize?'
-    const clientID = '&client_id=e7bebc81234e4737ada60bc666eb50d7'
+    const clientID = 'client_id=e7bebc81234e4737ada60bc666eb50d7'
     const response = '&response_type=code'
-    const scopes = '&scope=playlist-read-private%20user-follow-read%20user-top-read%20user-read-private%20user-read-email'
+    const scopes = '&scope=user-read-private%20user-read-email%20playlist-read-private%20user-follow-read%20user-top-read'
 
     // localhost redirect
-    // const redirect = '&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
+    const redirect = '&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile'
     
     //netlify redirect
-    const redirect = '&redirect_uri=https%3A%2F%2Fquizzical-poitras-057011.netlify.app%2Fprofile'
+    // const redirect = '&redirect_uri=https%3A%2F%2Fquizzical-poitras-057011.netlify.app%2Fprofile'
 
     return (
         <LoginContainer>

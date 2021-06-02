@@ -9,7 +9,7 @@ export default function authReducer(state = initialState, action) {
         case THROW_ERROR:
             return {...state, error: action.payload}
         case TOKEN_OBTAINED:
-            return { ...state, error: null, token: action.payload.token }
+            return { ...state, error: null, token: action.payload.token, refresh: action.payload.refresh }
         default:
             return state
     }

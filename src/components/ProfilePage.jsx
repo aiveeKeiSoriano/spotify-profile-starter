@@ -2,8 +2,9 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom"
 import styled from "styled-components";
-import { getInfo, getToken, tokenObtained } from "../redux/actions/actions";
+import { getInfo, getToken, getTopArtists, getTopTracks, tokenObtained } from "../redux/actions/actions";
 import Error from "./Error";
+import List from "./List";
 import SideBar from "./SideBar";
 
 const Wrapper = styled.div`
@@ -94,26 +95,38 @@ const Logout = styled.button`
         background-color: #ffffff1d;
     }
 `
+const BottomPart = styled.div`
+    padding: 3em 0em 2em 0em;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1000px;
+`
 
-export default function ProfilePage(props) {
+export default function ProfilePage() {
     const location = useLocation();
     const LocalToken = localStorage.getItem('Token')
+    const RefreshToken = localStorage.getItem('Refresh')
     let dispatch = useDispatch()
     let token = useSelector(state => state.auth.token)
     let user = useSelector(state => state.user)
     let error = useSelector(state => state.auth.error)
 
+    // After mount, first will check localstorage if there's state and use it to try to request for info
+    // if none, a token will be requested using the code in the url
     useEffect(() => {
-        if (LocalToken) dispatch(tokenObtained(LocalToken))
-        else if (!token) dispatch(getToken(location.search.replace('?code=', '')))
-        else (getInfo())
+        if (LocalToken) dispatch(tokenObtained(LocalToken, RefreshToken))
+        else dispatch(getToken(location.search.replace('?code=', '')))
     }
         // eslint-disable-next-line
         , [])
 
+    // Request for info once token is stored or token is refreshed
     useEffect(() => {
         if (token) {
             dispatch(getInfo())
+            dispatch(getTopArtists('long_term'))
+            dispatch(getTopTracks('long_term'))
         }
     },
         // eslint-disable-next-line
@@ -126,7 +139,7 @@ export default function ProfilePage(props) {
                 {error &&
                     <Error />
                 }
-                {user &&
+                {user && user.profile &&
                     <Profile>
                         <Pic>
                             <img className={user.profile.images[0] ? null : 'default'} src={user.profile.images[0] ? user.profile.images[0].url : "/images/person.svg"} alt="" />
@@ -149,100 +162,19 @@ export default function ProfilePage(props) {
                     <Logout>Logout</Logout>
                     </Profile>
                 }
+                <BottomPart>
+                    {user && user.topArtists &&
+                        <List type='Top Artists' data={user.topArtists}>
+                        
+                        </List>
+                    }
+                    {user && user.topTracks &&
+                        <List type='Top Tracks' data={user.topTracks}>
+                        
+                        </List>
+                    }
+                </BottomPart>
             </Content>
         </Wrapper>
     )
 }
-
-    // const TracksURL = 'https://api.spotify.com/v1/me/top/tracks'
-    // const ArtistURL = 'https://api.spotify.com/v1/me/top/artists'
-    // const ProfileURL = 'https://api.spotify.com/v1/me'
-    // // const Client = 'YjZiOTZmODI3ZjU4NDA3OTk1OWVhZTJiZDEwNGMwNGY6ZWNmYjNjOWYyZjlkNDVhZTk4NjhiNzc1ZGFmYjk5NWQ='
-    // const Client = 'ZTdiZWJjODEyMzRlNDczN2FkYTYwYmM2NjZlYjUwZDc6OWIwMDVkZjlmZGE4NDE3MWEwNmVjMjc2MmNmYTQ3YTI='
-    // const tokenURL = 'https://accounts.spotify.com/api/token'
-
-    // let [code, setCode] = useState(location.search.replace('?code=', ''))
-    // let [token, setToken] = useState(null)
-    // let [refresh, setRefresh] = useState(null)
-
-    // useEffect(() => {
-    //     setToken(location.hash.split('&')[0].replace('#access_token=', ''));
-    // }, [location]);
-    //     // eslint-disable-next-line
-    //     // , [])
-
-    // useEffect(() => {
-    //     // getInfo()
-    //     // getArtists()
-    //     // getTracks()
-    //     getToken()
-    //     console.log(code)
-    // }
-    //     // eslint-disable-next-line
-    //     , [code])
-
-
-    // async function getToken() {
-    //     let response = await fetch(tokenURL, {
-    //         method: 'POST',
-    //         body: 'grant_type=authorization_code&code=' + code + '&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile',
-    //         headers: {
-    //             'Authorization': 'Basic ' + Client,
-    //             'Content-Type': 'application/x-www-form-urlencoded'
-    //         }
-    //     })
-    //     let data = await response.json()
-    //     console.log(data)
-    //     setToken(data.access_token)
-    //     setRefresh(data.refresh_token)
-    // }
-
-    // let getInfo = async () => {
-    //     console.log(token)
-    //     let response = await fetch(ProfileURL, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Authorization': 'Bearer ' + token
-    //         }
-    //     })
-    //     let data = await response.json()
-    //     console.log(data)
-    // }
-
-    // let getArtists = async () => {
-    //     let response = await fetch(ArtistURL, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Authorization': 'Bearer ' + token
-    //         }
-    //     })
-    //     let data = await response.json()
-    //     console.log(data)
-    // }
-
-    // let getTracks = async () => {
-    //     let response = await fetch(TracksURL, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Authorization': 'Bearer ' + token
-    //         }
-    //     })
-    //     let data = await response.json()
-    //     console.log(data)
-    // }
-
-
-    // useEffect(() => {
-    //     let tokens = location.hash.split('&')[0].replace('#access_token=', '');
-    //     console.log(1, tokens)
-    //     fetch('https://api.spotify.com/v1/me', {
-    //         method: 'GET',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json',
-    //             'Authorization': 'Bearer ' + tokens,
-    //         }
-    //     }).then(response => response.json())
-    //         .then((data) => console.log(data)).catch(e => console.log(e));
-    // }, []);
-
