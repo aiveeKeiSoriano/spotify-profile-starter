@@ -20,10 +20,10 @@ const Client =
   "ZTdiZWJjODEyMzRlNDczN2FkYTYwYmM2NjZlYjUwZDc6OWIwMDVkZjlmZGE4NDE3MWEwNmVjMjc2MmNmYTQ3YTI=";
 
 //localhost redirect for local testing
-const redirect = "&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile";
+// const redirect = "&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile";
 
 //netlify redirect after deploying
-// const redirect = '&redirect_uri=https%3A%2F%2Fquizzical-poitras-057011.netlify.app%2Fprofile'
+const redirect = '&redirect_uri=https%3A%2F%2Fquizzical-poitras-057011.netlify.app%2Fprofile'
 
 export let throwError = (e) => ({
   type: THROW_ERROR,
