@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom"
+import { useHistory, useLocation } from "react-router-dom"
 import styled from "styled-components";
 import { getInfo, getToken, getTopArtists, getTopTracks, tokenObtained } from "../redux/actions/actions";
 import Error from "./Error";
@@ -104,7 +104,9 @@ const BottomPart = styled.div`
 `
 
 export default function ProfilePage() {
+
     const location = useLocation();
+    const history = useHistory();
     const LocalToken = localStorage.getItem('Token')
     const RefreshToken = localStorage.getItem('Refresh')
     let dispatch = useDispatch()
@@ -118,7 +120,8 @@ export default function ProfilePage() {
     useEffect(() => {
         if (!token) {
             if (LocalToken) dispatch(tokenObtained(LocalToken, RefreshToken))
-            else dispatch(getToken(location.search.replace('?code=', '')))
+            else if (location.search) dispatch(getToken(location.search.replace('?code=', '')))
+            else history.push('/')
         }
     }
         // eslint-disable-next-line
@@ -167,14 +170,10 @@ export default function ProfilePage() {
                 }
                 <BottomPart>
                     {user && user.topArtists &&
-                        <List type='Top Artists' data={user.topArtists}>
-                        
-                        </List>
+                        <List type='Top Artists' data={user.topArtists} />
                     }
                     {user && user.topTracks &&
-                        <List type='Top Tracks' data={user.topTracks}>
-                        
-                        </List>
+                        <List type='Top Tracks' data={user.topTracks} />
                     }
                 </BottomPart>
             </Content>

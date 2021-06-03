@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 // In the profile page, there are two containers containing lists of top artists and top tracks
@@ -101,10 +102,10 @@ export default function List({ type, data }) {
         <Container>
             <Head>
                 <p>{type} of All Time</p>
-                <button>See More</button>
+                <Link to={type === 'Top Artists' ? '/topartists' : '/toptracks'}><button>See More</button></Link>
             </Head>
             <Items>
-                {data.map(el => type === 'Top Artists' ? <Entry key={el.id} artist>
+                {data.slice(0, 5).map(el => type === 'Top Artists' ? <Entry key={el.id} artist>
                     <img src={el.images[0].url} alt="artist/track" />
                     <NameLink href={el.external_urls.spotify}>{el.name}</NameLink>
                 </Entry>

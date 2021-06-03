@@ -91,10 +91,12 @@ export default function SideBar() {
                         <p>Top Artists</p>
                     </Page>
                 </Link>
-                <Page>
-                    <Icon up src='/images/musical-notes.svg' alt='Top tracks page' />
-                    <p>Top Tracks</p>
-                </Page>
+                <Link to='/toptracks'>
+                    <Page className={location.pathname === '/toptracks' ? 'active' : null}>
+                        <Icon up src='/images/musical-notes.svg' alt='Top tracks page' />
+                        <p>Top Tracks</p>
+                    </Page>
+                </Link>
                 <Page>
                     <Icon src='/images/recent.svg' alt='Recent page' />
                     <p>Recent</p>

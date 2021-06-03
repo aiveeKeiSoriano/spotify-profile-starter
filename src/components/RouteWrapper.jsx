@@ -7,6 +7,7 @@ import {
 import ProfilePage from './ProfilePage';
 import Login from './Login'
 import TopArtist from "./TopArtist";
+import TopTracks from "./TopTracks";
 
 export default function RouteWrapper() {
     return (
@@ -17,6 +18,9 @@ export default function RouteWrapper() {
                 </Route>
                 <Route path='/topartists'>
                     <TopArtist />
+                </Route>
+                <Route path='/toptracks'>
+                    <TopTracks />
                 </Route>
                 <Route path='/'>
                     <Login />

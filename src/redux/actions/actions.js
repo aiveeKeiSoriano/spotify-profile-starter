@@ -20,10 +20,10 @@ const Client =
   "ZTdiZWJjODEyMzRlNDczN2FkYTYwYmM2NjZlYjUwZDc6OWIwMDVkZjlmZGE4NDE3MWEwNmVjMjc2MmNmYTQ3YTI=";
 
 //localhost redirect for local testing
-const redirect = "&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile";
+// const redirect = "&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile";
 
 //netlify redirect after deploying
-// const redirect = '&redirect_uri=https%3A%2F%2Fquizzical-poitras-057011.netlify.app%2Fprofile'
+const redirect = '&redirect_uri=https%3A%2F%2Fquizzical-poitras-057011.netlify.app%2Fprofile'
 
 export let throwError = (e) => ({
   type: THROW_ERROR,
@@ -40,14 +40,14 @@ export let profileObtained = (object) => ({
   payload: object,
 });
 
-export let topTracksObtained = (arr) => ({
+export let topTracksObtained = (list, term) => ({
   type: TOPTRACKS_OBTAINED,
-  payload: arr,
+  payload: { list, term }
 });
 
-export let topArtistsObtained = (arr) => ({
+export let topArtistsObtained = (list, term) => ({
   type: TOPARTISTS_OBTAINED,
-  payload: arr,
+  payload: { list, term }
 });
 
 
@@ -118,7 +118,7 @@ export let getTopTracks = (term) => {
       let response = await axios.get(TracksURL + term, {
         headers: { Authorization: "Bearer " + getState().auth.token },
       });
-      dispatch(topTracksObtained(response.data.items));
+      dispatch(topTracksObtained(response.data.items, term));
     }
     catch (e) {
       dispatch(throwError(e));
@@ -135,7 +135,8 @@ export let getTopArtists = (term) => {
       });
         console.log("ARTISTS", response);
       // response.data.items is an array of the top 20 artists
-      dispatch(topArtistsObtained(response.data.items));
+      // we're saving the term in the state too just so the buttons on top of the topartist page knows which of them is active
+      dispatch(topArtistsObtained(response.data.items, term));
     }
     catch (e) {
       dispatch(throwError(e));
