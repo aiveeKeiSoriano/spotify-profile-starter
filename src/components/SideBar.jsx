@@ -1,4 +1,5 @@
 import { useLocation } from "react-router"
+import { Link } from "react-router-dom"
 import styled, { css } from "styled-components"
 
 
@@ -39,6 +40,10 @@ const Pages = styled.div`
     flex-direction: column;
     width: 100%;
     gap: .5em;
+
+    a:active {
+        text-decoration-line: none;
+    }
 `
 
 const Page = styled.div`
@@ -74,14 +79,18 @@ export default function SideBar() {
         <Wrapper>
             <a href='https://open.spotify.com/'><Logo src="/images/spotify-logo.svg" alt="spotify link" /></a>
             <Pages>
-                <Page className={location.pathname === '/profile' ? 'active' : null}>
-                    <Icon up src='/images/person.svg' alt='profile page' />
-                    <p>Profile</p>
-                </Page>
-                <Page>
-                    <Icon src='/images/mic.svg' alt='Top artists page' />
-                    <p>Top Artists</p>
-                </Page>
+                <Link to='/profile'>
+                    <Page className={location.pathname === '/profile' ? 'active' : null}>
+                        <Icon up src='/images/person.svg' alt='profile page' />
+                        <p>Profile</p>
+                    </Page>
+                </Link>
+                <Link to='/topartists'>
+                    <Page className={location.pathname === '/topartists' ? 'active' : null} >
+                        <Icon src='/images/mic.svg' alt='Top artists page' />
+                        <p>Top Artists</p>
+                    </Page>
+                </Link>
                 <Page>
                     <Icon up src='/images/musical-notes.svg' alt='Top tracks page' />
                     <p>Top Tracks</p>

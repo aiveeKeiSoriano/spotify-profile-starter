@@ -70,11 +70,11 @@ const Stats = styled.div`
         flex-direction: column;
         gap: .4em;
         align-items: center;
-    }
 
-    .stat p:first-of-type {
+        & > p:first-of-type {
         font-size: 1rem;
         color: #1FBA57;
+        }
     }
 `
 
@@ -112,11 +112,14 @@ export default function ProfilePage() {
     let user = useSelector(state => state.user)
     let error = useSelector(state => state.auth.error)
 
-    // After mount, first will check localstorage if there's state and use it to try to request for info
+    // After mount, first will check if there's token in the state (in case we came from 1 page to another)
+    // then checking localstorage if there's state and use it to try to request for info
     // if none, a token will be requested using the code in the url
     useEffect(() => {
-        if (LocalToken) dispatch(tokenObtained(LocalToken, RefreshToken))
-        else dispatch(getToken(location.search.replace('?code=', '')))
+        if (!token) {
+            if (LocalToken) dispatch(tokenObtained(LocalToken, RefreshToken))
+            else dispatch(getToken(location.search.replace('?code=', '')))
+        }
     }
         // eslint-disable-next-line
         , [])
@@ -139,7 +142,7 @@ export default function ProfilePage() {
                 {error &&
                     <Error />
                 }
-                {user && user.profile &&
+                {user && user.profile && !error &&
                     <Profile>
                         <Pic>
                             <img className={user.profile.images[0] ? null : 'default'} src={user.profile.images[0] ? user.profile.images[0].url : "/images/person.svg"} alt="" />

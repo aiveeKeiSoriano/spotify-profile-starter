@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import ProfilePage from './ProfilePage';
 import Login from './Login'
+import TopArtist from "./TopArtist";
 
 export default function RouteWrapper() {
     return (
@@ -13,6 +14,9 @@ export default function RouteWrapper() {
             <Switch>
                 <Route path='/profile'>
                     <ProfilePage />
+                </Route>
+                <Route path='/topartists'>
+                    <TopArtist />
                 </Route>
                 <Route path='/'>
                     <Login />
