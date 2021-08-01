@@ -113,6 +113,9 @@ export let getInfo = () => {
           dispatch(throwError(err));
         }
       }
+      else if (e.request.status === 400) {
+        dispatch(logOut())
+      }
       else dispatch(throwError(e));
     }
   };
@@ -150,3 +153,11 @@ export let getTopArtists = (term) => {
     }
   };
 };
+
+export const logOut = () => {
+  return (dispatch) => {
+    localStorage.removeItem("access_token")
+    localStorage.removeItem("refresh_token")
+    dispatch(tokenObtained(null, null))
+  }
+}

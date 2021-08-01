@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom"
 import styled from "styled-components";
-import { getInfo, getToken, getTopArtists, getTopTracks, tokenObtained } from "../redux/actions/actions";
+import { getInfo, getToken, getTopArtists, getTopTracks, logOut, tokenObtained } from "../redux/actions/actions";
 import Error from "./Error";
 import List from "./List";
 import SideBar from "./SideBar";
@@ -114,21 +114,13 @@ export default function ProfilePage() {
     let user = useSelector(state => state.user)
     let error = useSelector(state => state.auth.error)
 
-    // After mount, first will check if there's token in the state (in case we came from 1 page to another)
-    // then checking localstorage if there's state and use it to try to request for info
-    // if none, a token will be requested using the code in the url
+    // Request for info once token is stored or token is refreshed
     useEffect(() => {
         if (!token) {
             if (LocalToken) dispatch(tokenObtained(LocalToken, RefreshToken))
             else if (location.search) dispatch(getToken(location.search.replace('?code=', '')))
             else history.push('/')
         }
-    }
-        // eslint-disable-next-line
-        , [])
-
-    // Request for info once token is stored or token is refreshed
-    useEffect(() => {
         if (token) {
             dispatch(getInfo())
             dispatch(getTopArtists('long_term'))
@@ -165,7 +157,7 @@ export default function ProfilePage() {
                                 <p>playlists</p>
                             </div>
                     </Stats>
-                    <Logout>Logout</Logout>
+                    <Logout onClick={dispatch(logOut())}>Logout</Logout>
                     </Profile>
                 }
                 <BottomPart>
