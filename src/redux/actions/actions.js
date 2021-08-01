@@ -16,14 +16,17 @@ const tokenURL = "https://accounts.spotify.com/api/token";
 // const Client = 'YjZiOTZmODI3ZjU4NDA3OTk1OWVhZTJiZDEwNGMwNGY6ZWNmYjNjOWYyZjlkNDVhZTk4NjhiNzc1ZGFmYjk5NWQ='
 
 //nithya client
-const Client =
-  "ZTdiZWJjODEyMzRlNDczN2FkYTYwYmM2NjZlYjUwZDc6OWIwMDVkZjlmZGE4NDE3MWEwNmVjMjc2MmNmYTQ3YTI=";
+// const Client =
+//   "ZTdiZWJjODEyMzRlNDczN2FkYTYwYmM2NjZlYjUwZDc6OWIwMDVkZjlmZGE4NDE3MWEwNmVjMjc2MmNmYTQ3YTI=";
+
+//old app
+const Client = "Yjk1N2JmOWQzNDMwNDZjMWE0MTVhMDVhNTQ2Mzk2YWM6YjRjYTU5MDA5Y2Q2NGNhYTlhMTYzNTk2YmE2MGRhZTY="
 
 //localhost redirect for local testing
-// const redirect = "&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fprofile";
+// const redirect_uri = "http://localhost:3000/profile";
 
 //netlify redirect after deploying
-const redirect = '&redirect_uri=https%3A%2F%2Fquizzical-poitras-057011.netlify.app%2Fprofile'
+const redirect_uri = 'https://quizzical-poitras-057011.netlify.app/profile'
 
 export let throwError = (e) => ({
   type: THROW_ERROR,
@@ -54,10 +57,14 @@ export let topArtistsObtained = (list, term) => ({
 // If there are no stored token in local storage, this is called to get token from the code in the url
 export let getToken = (code) => {
   return async (dispatch) => {
-    const body = "grant_type=authorization_code&code=" + code + redirect;
+    const body = new URLSearchParams()
+    body.append("grant_type", "authorization_code")
+    body.append("code", code)
+    body.append("redirect_uri", redirect_uri)
     try {
       let response = await axios.post(tokenURL, body, {
         headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
           Authorization: "Basic " + Client,
         },
       });

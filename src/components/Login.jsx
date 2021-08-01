@@ -36,7 +36,11 @@ export default function Login() {
 
 
     const endpoint = 'https://accounts.spotify.com/authorize?'
-    const clientID = 'client_id=e7bebc81234e4737ada60bc666eb50d7'
+    // const clientID = 'client_id=e7bebc81234e4737ada60bc666eb50d7'
+
+    //old app
+    const clientID = 'client_id=b957bf9d343046c1a415a05a546396ac'
+    
     const response = '&response_type=code'
     const scopes = '&scope=user-read-private%20user-read-email%20playlist-read-private%20user-follow-read%20user-top-read'
 
@@ -45,7 +49,7 @@ export default function Login() {
 
     //netlify redirect
     const redirect = '&redirect_uri=https%3A%2F%2Fquizzical-poitras-057011.netlify.app%2Fprofile'
-    
+
     const LocalToken = localStorage.getItem('Token')
     let history = useHistory()
 
